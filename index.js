@@ -4,7 +4,7 @@ const app = express()
 const port = 8000
 
 app.listen(port, () => {
-  console.log(`ok`) //khaldoun said leave console log !!
+  console.log(`ok`) //khaldoun said leave console.log because it gives error when put res.send !!
 })
 
 app.get("/test", (req, res) => {
@@ -55,4 +55,30 @@ app.get("/search", (req, res) => {
         }
     }
     res.send(final);
+})
+
+const movies = [
+    { title: 'Jaws', year: 1975, rating: 8 },
+    { title: 'Avatar', year: 2009, rating: 7.8 },
+    { title: 'Brazil', year: 1985, rating: 8 },
+    { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
+]
+
+app.get("/movies/create", (req, res) => {
+    
+})
+
+app.get("/movies/read", (req, res) => {
+    res.send({
+        status: 200, 
+        movie: movies 
+    })
+})
+
+app.get("/movies/update", (req, res) => {
+    
+})
+
+app.get("/movies/delete", (req, res) => {
+    
 })
