@@ -84,7 +84,7 @@ app.get("/movies/read/by-rating", (req, res) => {
         return 0;
     });
     const result = {
-        status: 200,
+        status: 200, 
         data: readArr
     }
     res.send(result);
