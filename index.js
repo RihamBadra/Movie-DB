@@ -75,6 +75,52 @@ app.get("/movies/read", (req, res) => {
     })
 })
 
+app.get("/movies/read/by-rating", (req, res) => {
+    //sort by rate highest at top
+    const readArr = [...movies];
+    readArr.sort(function(a, b) {
+        if (a.rating < b.rating) return 1;
+        else if (a.rating > b.rating) return -1;
+        return 0;
+    });
+    const result = {
+        status: 200,
+        data: readArr
+    }
+    res.send(result);
+})
+
+app.get("/movies/read/by-title", (req, res) => {
+    //sort by title
+    const readArr = [...movies];
+    readArr.sort(function(a, b) {
+        if (a.title < b.title) return -1;
+        else if (a.title > b.title) return 1;
+        return 0;
+    });
+    const result = {
+        status: 200,
+        data: readArr
+    }
+    res.send(result);
+})
+
+
+app.get("/movies/read/by-date", (req, res) => {
+    //sort by date
+    const readArr = [...movies];
+    readArr.sort(function(a, b) {
+        if (a.year < b.year) return -1;
+        else if (a.year > b.year) return 1;
+        return 0;
+    });
+    const result = {
+        status: 200,
+        data: readArr
+    }
+    res.send(result);
+})
+
 app.get("/movies/update", (req, res) => {
     
 })
