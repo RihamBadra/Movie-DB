@@ -34,7 +34,6 @@ app.get("/hello/:id", (req, res) => {
 })
 
 app.get("/search", (req, res) => {
-    let data, final
     if(req.query.s){
         data = req.query.s;
         final = {
@@ -68,6 +67,23 @@ app.get("/movies/read", (req, res) => {
         status: 200, 
         movie: movies 
     })
+})
+
+app.get("/movies/read/id/:id", (req, res) => {
+    if(req.params.id >= 0 && req.params.id < movies.length) {
+        result = {
+            status: 200,
+            data: movies[req.params.id]
+        }
+    } 
+    else {
+        result = {
+            status: 400,
+            error: true,
+            message: `The movie ${req.params.id} doesn't exist in the list !!`
+        }
+    }
+    res.send(result);
 })
 
 app.get("/movies/read/by-rating", (req, res) => {
