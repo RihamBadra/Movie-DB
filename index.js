@@ -4,7 +4,7 @@ const app = express()
 const port = 8000
 
 app.listen(port, () => {
-  console.log(`ok`)
+  console.log(`ok`) //khaldoun said leave console log !!
 })
 
 app.get("/test", (req, res) => {
@@ -22,4 +22,37 @@ app.get("/time", (req, res) => {
         message : timess
     }
     res.send(thetime);
+})
+
+app.get("/hello/:id", (req, res) => {
+    const message = `Hello, ${req.params.id}`
+    const final = {
+        status: 200,
+        message: message
+    }
+    res.send(final)
+})
+
+app.get("/search", (req, res) => {
+    let status, message, data, final, error
+    if(req.query.s){
+        status = 200;
+        message = "ok";
+        data = req.query.s;
+        final = {
+            status: status,
+            message: message,
+            data: data
+        }
+    } else {
+        status = 500;
+        message = "hey,you have to provide a search";
+        error = true;
+        final = {
+            status: status,
+            message: message,
+            error: error
+        }
+    }
+    res.send(final);
 })
