@@ -34,24 +34,19 @@ app.get("/hello/:id", (req, res) => {
 })
 
 app.get("/search", (req, res) => {
-    let status, message, data, final, error
+    let data, final
     if(req.query.s){
-        status = 200;
-        message = "ok";
         data = req.query.s;
         final = {
-            status: status,
-            message: message,
+            status: 200,
+            message: "ok",
             data: data
         }
     } else {
-        status = 500;
-        message = "hey,you have to provide a search";
-        error = true;
         final = {
-            status: status,
-            message: message,
-            error: error
+            status: 500,
+            message: "hey,you have to provide a search",
+            error: true
         }
     }
     res.send(final);
