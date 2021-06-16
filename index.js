@@ -173,3 +173,30 @@ app.get("/movies/create", (req,res) => {
         res.send(movies);
     }
  });
+
+ app.get('/movies/update/:id(\\d+)', (req, res) => {
+    let id = req.params.id - 1;
+    let title = req.query.title;
+    let year = req.query.year;
+    let rating = req.query.rating;
+    let output;
+    if (movies.length >= id) {
+      if (title === undefined || title === "") {
+        title = movies[id].title;
+      }
+      if (year === undefined || year === "" || !(/^\d{4}$/).test(year)) {
+        year = movies[id].year;
+      }
+      if (rating === undefined || rating === "") {
+        rating = movies[id].rating;  }
+      movies[id] = {title, year,rating};
+      output = {data: movies };
+      res.status(200).send(output)
+    } else {
+      output = {
+        error: true,
+        message: `the movie ${id+1} does not exist`,
+      };
+      res.status(404).send(output)
+    }    
+})
