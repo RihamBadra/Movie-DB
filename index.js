@@ -144,22 +144,23 @@ app.get("/movies/delete", (req, res) => {
     res.send(response);
 })
 
-app.get("/movies/delete/:id" , (req , res) =>{
-        if (req.params.id< movies.length && req.params.id>0) {
-        for(var  i = 0 ; i < movies.length ; i++){
-        if(movies[i].title == movies[req.params.id].title){
-            movies.splice(i,1);
-            response.status=200;
-            response.error=false;
-            response.message="Deleted movie "+req.params.id;
-            response.data=movies;
-            }};
-            res.send(response);
+app.get("/movies/create", (req,res) => {
 
-        }else{
-        response.status=404
-        response.error=true
-        response.message="Movie ID = " + req.params.id + " does not exist !!" 
-
-        res.send(response);}
-})
+    const movie = {
+      title : req.query.title,
+      year : req.query.year,
+      rating : req.query.rating
+    };
+    if(movie.rating == undefined) {
+      movie.rating = 4;
+    }
+    if ((movie.title) == 'undefined' || (movie.year == 'undefined') ||  (isNaN(movie.year)) || (movie.year.toString().length !== 4)){
+      res.json({status:403, error:true, message:'you cannot create a movie without providing a title and a year'});
+      console.log(res.json)
+    }
+    else{
+      movies.push(movie);
+      res.send(movie);
+      res.json({status: 200, message: 'ok' , data: movies})
+    }
+  });
