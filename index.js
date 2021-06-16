@@ -145,7 +145,6 @@ app.get("/movies/delete", (req, res) => {
 })
 
 app.get("/movies/create", (req,res) => {
-
     const movie = {
       title : req.query.title,
       year : req.query.year,
@@ -164,3 +163,5 @@ app.get("/movies/create", (req,res) => {
       res.json({status: 200, message: 'ok' , data: movies})
     }
   });
+
+  
