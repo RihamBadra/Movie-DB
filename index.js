@@ -7,6 +7,11 @@ app.listen(port, () => {
   console.log(`ok`) //khaldoun said leave console.log because it gives error when put res.send !!
 })
 
+app.use(express.json());
+app.post("/", (req, res) => {
+  res.send("okii");
+});
+
 app.get("/test", (req, res) => {
     res.send({
         status:200, 
@@ -65,7 +70,7 @@ app.get("/movies/create", (req, res) => {
 app.get("/movies/read", (req, res) => {
     res.send({
         status: 200, 
-        movie: movies 
+        movie: movies[0]
     })
 })
 
@@ -116,7 +121,6 @@ app.get("/movies/read/by-title", (req, res) => {
     res.send(result);
 })
 
-
 app.get("/movies/read/by-date", (req, res) => {
     //sort by date
     const readArr = [...movies];
@@ -136,7 +140,7 @@ app.get("/movies/update", (req, res) => {
     
 })
 
-app.get("/movies/delete", (req, res) => {
+app.delete("/movies/delete", (req, res) => {
     const response= {
         status:404, error:true, message:'Enter an ID please'
     };
@@ -144,7 +148,7 @@ app.get("/movies/delete", (req, res) => {
     res.send(response);
 })
 
-app.get("/movies/create", (req,res) => {
+app.post("/movies/create", (req,res) => {
     const movie = {
       title : req.query.title,
       year : req.query.year,
@@ -164,7 +168,7 @@ app.get("/movies/create", (req,res) => {
     }
   });
 
-  app.get("/movies/delete/:id", (req,res) => {
+  app.delete("/movies/delete/:id", (req,res) => {
     const id = parseInt(req.params.id);
     if (id>movies.length || id<=0){
        res.send({status:404, error:true, message:`the movie ${id} does not exist`})
@@ -174,7 +178,7 @@ app.get("/movies/create", (req,res) => {
     }
  });
 
- app.get('/movies/update/:id(\\d+)', (req, res) => {
+ app.put('/movies/update/:id(\\d+)', (req, res) => {
     let id = req.params.id - 1;
     let title = req.query.title;
     let year = req.query.year;
