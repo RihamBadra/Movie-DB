@@ -137,7 +137,11 @@ app.get("/movies/update", (req, res) => {
 })
 
 app.get("/movies/delete", (req, res) => {
-    
+    const response= {
+        status:404, error:true, message:'Enter an ID please'
+    };
+    res.status(404);
+    res.send(response);
 })
 
 app.get("/movies/delete/:id" , (req , res) =>{
