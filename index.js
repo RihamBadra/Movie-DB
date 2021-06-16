@@ -139,3 +139,23 @@ app.get("/movies/update", (req, res) => {
 app.get("/movies/delete", (req, res) => {
     
 })
+
+app.get("/movies/delete/:id" , (req , res) =>{
+        if (req.params.id< movies.length && req.params.id>0) {
+        for(var  i = 0 ; i < movies.length ; i++){
+        if(movies[i].title == movies[req.params.id].title){
+            movies.splice(i,1);
+            response.status=200;
+            response.error=false;
+            response.message="Deleted movie "+req.params.id;
+            response.data=movies;
+            }};
+            res.send(response);
+
+        }else{
+        response.status=404
+        response.error=true
+        response.message="Movie ID = " + req.params.id + " does not exist !!" 
+
+        res.send(response);}
+})
